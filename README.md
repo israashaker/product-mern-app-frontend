@@ -1,1 +1,1 @@
-﻿Prdouct-mern-app-frontend
+﻿Product-mern-app-frontend
