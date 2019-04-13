@@ -6,7 +6,9 @@ import {
     FETCHED_FAILED,
     CHAGNE_MONTH,
     PRODUCT_EDITED,
-    RESET_EDITED_FLAG
+    PRODUCT_DELETED,
+    RESET_EDITED_FLAG,
+    RESET_DELETED_FLAG
   } from './types';
   import { addErrorMessage, clearErrorMessages } from './error_actions';
   
@@ -58,6 +60,7 @@ import {
     return async dispatch => {
       try {
         await apiDeleteProduct(url);
+        dispatch({ type: PRODUCT_DELETED});
       } catch (e) {
        
         dispatch(addErrorMessage(e));
@@ -71,6 +74,9 @@ import {
   }
   export const resetEdited = () => {
     return {type:RESET_EDITED_FLAG}
+  }
+  export const resetDeleted = () => {
+    return {type:RESET_DELETED_FLAG}
   }
   export const resetSaved = () => {
     return {type:RESET_SAVED_FLAG}
