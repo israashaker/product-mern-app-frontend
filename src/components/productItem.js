@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {ListGroupItem ,Badge,Button} from 'reactstrap';
 import moment from 'moment';
 import {connect} from 'react-redux';
-import {DeleteProduct,fetchProduct,EditProduct,resetSaved, resetEdited,resetDeleted} from '../actions/product_actions';
+import {DeleteProduct,fetchProduct,EditProduct,resetSaved, resetEdited} from '../actions/product_actions';
 import {Modal, ModalHeader, ModalBody,Input,FormGroup,Label,FormFeedback} from 'reactstrap';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -25,22 +25,19 @@ class ProductItemComponent extends Component{
         EditProduct(this.props.item._id,values);
       }
      componentDidUpdate(){
-        const {selected,edited,fetchProduct,resetEdited,deleted}=this.props;
+        const {selected,edited,fetchProduct,resetEdited}=this.props;
          if (edited){
             resetEdited();
             fetchProduct(selected);
-         }
-         if(deleted){
-             resetDeleted();
-             fetchProduct(selected);
          }
      }
     handleDelete(id){
         var conf =window.confirm("Are you sure you want to delete this product?");
        if(conf){
            
-                const {DeleteProduct} =this.props;
+                const {DeleteProduct,selected,fetchProduct} =this.props;
                 DeleteProduct(id);
+                fetchProduct(selected);
                 }
     }
     render(){
@@ -126,10 +123,9 @@ const mapStateToProps =({productv1,errors})=>{
       selected:productv1.month,
       saved:productv1.saved,
       message:errors.message,
-      edited:productv1.edited,
-      deleted:productv1.deleted
+      edited:productv1.edited
     }
   }
 
-const ProductItem = connect(mapStateToProps,{DeleteProduct,fetchProduct,resetSaved,EditProduct,resetEdited,resetDeleted})(ProductItemComponent);
+const ProductItem = connect(mapStateToProps,{DeleteProduct,fetchProduct,resetSaved,EditProduct,resetEdited})(ProductItemComponent);
 export {ProductItem}

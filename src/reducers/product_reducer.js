@@ -1,12 +1,11 @@
-import {PRODUCT_SAVED,RESET_SAVED_FLAG,FETCHING_PRODUCT,FETCHED_SUCCESS,FETCHED_FAILED,CHAGNE_MONTH,PRODUCT_EDITED,PRODUCT_DELETED,RESET_EDITED_FLAG,RESET_DELETED_FLAG}from '../actions/types';
+import {PRODUCT_SAVED,RESET_SAVED_FLAG,FETCHING_PRODUCT,FETCHED_SUCCESS,FETCHED_FAILED,CHAGNE_MONTH,PRODUCT_EDITED,RESET_EDITED_FLAG}from '../actions/types';
 import moment from 'moment';
 const INITIAL_STATE={
     saved:false,
     fetching:false,
     month:moment().month(),
     product:[],
-    edited:false,
-    deleted:false
+    edited:false
 }
 export default (state=INITIAL_STATE,action)=>{
     switch(action.type){
@@ -24,12 +23,8 @@ export default (state=INITIAL_STATE,action)=>{
             return {...state,month:action.payload};
         case PRODUCT_EDITED:
             return {...state,edited:true}
-        case PRODUCT_DELETED:
-            return {...state,deleted:true}    
         case RESET_EDITED_FLAG:
-            return {...state,edited:false}
-        case RESET_DELETED_FLAG:
-            return {...state,deleted:false}           
+            return {...state,edited:false}       
         default:
         return state;
     }
